@@ -32,7 +32,6 @@ public class TestBase {
 
         Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.holdBrowserOpen = true;
 
 
         //определеяем property - из командно строки или dfault
@@ -44,6 +43,7 @@ public class TestBase {
         if (remoteBrowser != null) {
             Configuration.remote = remoteBrowser;
         }
+        Configuration.holdBrowserOpen = true;
         //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
