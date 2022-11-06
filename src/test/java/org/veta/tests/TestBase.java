@@ -34,11 +34,11 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
 
 
-        //определеяем property - из командно строки или dfault
+        //определеяем property - из командно строки или default
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion", "100");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
-        String remoteBrowser = System.getProperty("remote Browser");
+        String remoteBrowser = System.getProperty("remoteBrowser");
 
         if (remoteBrowser != null) {
             Configuration.remote = remoteBrowser;
