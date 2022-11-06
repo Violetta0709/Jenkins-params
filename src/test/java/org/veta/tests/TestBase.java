@@ -6,6 +6,7 @@ import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.openqa.selenium.bidi.ConverterFunctions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -26,17 +27,24 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("browserVersion", "100.0");
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+
         Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = true;
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+
+        //определеяем property - из командно строки или dfault
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browserVersion", "100");
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        String remoteBrowser = System.getProperty("remote Browser");
+
+        if (remoteBrowser != null) {
+            Configuration.remote = remoteBrowser;
+        }
+        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
     @AfterEach
